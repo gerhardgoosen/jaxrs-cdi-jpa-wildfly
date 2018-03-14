@@ -16,9 +16,9 @@ import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.query.AuditQuery;
 
-import eoh.cic.jpa.utils.EntityController;
+import eoh.cic.jpa.utils.JPAEntityController;
 import eoh.cic.model.Cic;
-import eoh.cic.rest.CicApiException;
+import eoh.cic.rest.errors.CicApiException;
  
 
 @Named(value = "AuditControl")
@@ -26,7 +26,7 @@ import eoh.cic.rest.CicApiException;
 public class AuditControl {
 	private static final Logger log = Logger.getLogger(AuditControl.class.getName());
 	@Inject
-	EntityController entityControl;
+	JPAEntityController entityControl;
 
 	@PostConstruct
 	public void initilizeAuditControl() {

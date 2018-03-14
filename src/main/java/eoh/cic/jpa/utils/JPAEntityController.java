@@ -8,13 +8,13 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.PreRemove;
 import javax.transaction.Transactional;
 
 import eoh.cic.jpa.AppPersistanceContext;
+import eoh.cic.jpa.PersistentObject;
 import eoh.cic.model.Cic;
 
 /**
@@ -22,11 +22,11 @@ import eoh.cic.model.Cic;
  *
  */
 @RequestScoped
-public class EntityController implements Serializable {
+public class JPAEntityController implements Serializable {
 
 	private static final long serialVersionUID = -5466724800006932165L;
 
-	private static final Logger log = Logger.getLogger(EntityController.class.getName());
+	private static final Logger log = Logger.getLogger(JPAEntityController.class.getName());
 	@Inject
 	@AppPersistanceContext
 	@PersistenceContext(name = "primary", unitName = "primary", type = PersistenceContextType.EXTENDED)
@@ -51,7 +51,7 @@ public class EntityController implements Serializable {
 	 * @param p
 	 */
 	@Transactional
-	public void updateModelObject(Cic p) {
+	public void updateModelObject(PersistentObject p) {
 		log.info("EntityController - update (class" + p.getClass().getSimpleName() + " - " + p.getId() + ")");
 
 		try {
@@ -70,7 +70,7 @@ public class EntityController implements Serializable {
 	 * @throws Exception
 	 */
 	@Transactional
-	public Cic saveModelObject(Cic currentItem) throws Exception {
+	public PersistentObject saveModelObject(PersistentObject currentItem) throws Exception {
 		log.info(
 				"EntityController - save (" + currentItem.getClass().getName() + ", id : " + currentItem.getId() + ")");
 
@@ -89,7 +89,7 @@ public class EntityController implements Serializable {
 	 * @param currentItem
 	 */
 	@Transactional
-	public void removeModelObject(Cic currentItem) {
+	public void removeModelObject(PersistentObject currentItem) {
 		try {
 			getEntityManager().refresh(currentItem);
 			getEntityManager().remove(currentItem);

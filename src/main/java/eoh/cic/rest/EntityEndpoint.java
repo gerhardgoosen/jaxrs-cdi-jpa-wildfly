@@ -15,17 +15,17 @@ import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import eoh.cic.model.Cic;
+import eoh.cic.model.Entity;
 import eoh.cic.rest.control.AuditControl;
-import eoh.cic.rest.control.CicControl;
+import eoh.cic.rest.control.EntityControl;
 
-@Path("/cic")
-public class CicEndpoint {
+@Path("/entity")
+public class EntityEndpoint {
 
-	private static final Logger log = Logger.getLogger(CicEndpoint.class.getName());
+	private static final Logger log = Logger.getLogger(EntityEndpoint.class.getName());
 
 	@Inject
-	private CicControl cicControl;
+	private EntityControl entityControl;
 
 	@Inject
 	private AuditControl auditControl;
@@ -40,15 +40,15 @@ public class CicEndpoint {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Response getCIC(@PathParam("id") Long id) {
-		log.log(Level.INFO, "getCIC({0})", id);
+	public Response getEntity(@PathParam("id") Long id) {
+		log.log(Level.INFO, "getEntity({0})", id);
 		try {
 
-			return Response.ok(mapper.writeValueAsString(cicControl.getCic(id))).build();
+			return Response.ok(mapper.writeValueAsString(this.entityControl.getEntity(id))).build();
 
 		}
 		catch (Exception e) {
-			log.log(Level.SEVERE, "Error on CicEndpoint.getCIC : {0}", e.getMessage());
+			log.log(Level.SEVERE, "Error on getEntity.getEntity : {0}", e.getMessage());
 			return Response.status(500).entity(e.getMessage()).build();
 		}
 	}
@@ -59,15 +59,15 @@ public class CicEndpoint {
 	@Path("/")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response createCIC(String data) {
-		log.log(Level.INFO, "createCIC --> \n \n {0}", data);
+	public Response createEntity(String data) {
+		log.log(Level.INFO, "createEntity --> \n \n {0}", data);
 		try {
 
-			return Response.ok(this.cicControl.createCic(mapper.readValue(data, Cic.class))).build();
+			return Response.ok(this.entityControl.createEntity(mapper.readValue(data, Entity.class))).build();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			log.log(Level.SEVERE, "Error on CicEndpoint.createCIC : " + e.getMessage(), e);
+			log.log(Level.SEVERE, "Error on EntityEndpoint.createCIC : " + e.getMessage(), e);
 			return Response.status(500).entity(e.getMessage()).build();
 		}
 	}
@@ -81,11 +81,11 @@ public class CicEndpoint {
 		log.log(Level.INFO, "getAuditHistory({0})", id);
 		try {
 
-			return Response.ok(mapper.writeValueAsString(auditControl.getAuditTrail(Cic.class, id))).build();
+			return Response.ok(mapper.writeValueAsString(auditControl.getAuditTrail(Entity.class, id))).build();
 
 		}
 		catch (Exception e) {
-			log.log(Level.SEVERE, "Error on CicEndpoint.getAuditHistory : {0}", e.getMessage());
+			log.log(Level.SEVERE, "Error on EntityEndpoint.getAuditHistory : {0}", e.getMessage());
 			return Response.status(500).entity(e.getMessage()).build();
 		}
 	}

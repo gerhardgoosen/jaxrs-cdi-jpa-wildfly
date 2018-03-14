@@ -1,4 +1,4 @@
-package eoh.cic.rest;
+package eoh.cic.rest.errors;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

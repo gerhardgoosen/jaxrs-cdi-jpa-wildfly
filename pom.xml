@@ -21,7 +21,6 @@
 		<version.javaee.api>7.0</version.javaee.api>
 		<version.cdi.api>2.0</version.cdi.api>
 		<version.surefire>2.17</version.surefire>
-		<version.jacoco>0.7.9</version.jacoco>
 		<version.hibernate.envers>5.2.8.Final</version.hibernate.envers>
 		<version.hibernate.core>5.2.8.Final</version.hibernate.core>
 		<version.servlet.api>2.5</version.servlet.api>
@@ -40,12 +39,153 @@
 
 
 	<repositories>
+
+		<repository>
+			<id>my-alternate-repository</id>
+			<url>http://central.maven.org/maven2</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>datanucleus</id>
+			<url>http://www.datanucleus.org/downloads/maven2/</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>mvnrepository</id>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>apache</id>
+			<url>http://repository.apache.org/</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>nes</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+		</repository>
+		<repository>
+			<id>maven2</id>
+			<url>http://repository.jboss.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>maven3</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+		</repository>
+		<repository>
+			<id>primefaces-repository</id>
+			<url>https://repository.primefaces.org/</url>
+		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</repository>
+		<repository>
+			<id>osgeo</id>
+			<name>Open Source Geospatial Foundation Repository</name>
+			<url>http://download.osgeo.org/webdav/geotools/</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>boundless</id>
+			<name>Boundless Maven Repository</name>
+			<url>http://repo.boundlessgeo.com/main</url>
+		</repository>
 		<repository>
 			<id>JBoss Repository</id>
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
 	</repositories>
-
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>jboss-plugins</id>
+			<url>http://repository.jboss.com/maven2</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>jboss-snapshot-plugins</id>
+			<url>http://snapshots.jboss.org/maven2</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+			<id>jboss-jboss-javaee-7.0</id>
+			<name>JBoss jboss-javaee-7.0</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public/org/jboss/spec/jboss-javaee-7.0/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencyManagement>
 		<dependencies>
@@ -267,23 +407,23 @@
 
 
 	<dependencies>
-	
-		<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-7.0</artifactId>
-				<version>1.0.0.Final</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 
-			<dependency>
-				<groupId>org.wildfly.swarm</groupId>
-				<artifactId>bom</artifactId>
-				<version>${version.wildfly.swarm}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-7.0</artifactId>
+			<version>1.0.0.Final</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>bom</artifactId>
+			<version>${version.wildfly.swarm}</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -296,7 +436,7 @@
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -376,13 +516,13 @@
 			<groupId>org.jboss.xnio</groupId>
 			<artifactId>xnio-nio</artifactId>
 		</dependency>
-		
-		
-<dependency>
-    <groupId>org.jboss.resteasy</groupId>
-    <artifactId>resteasy-jaxb-provider</artifactId>
-    <version>3.0.8.Final</version>
-</dependency>
+
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>3.0.8.Final</version>
+		</dependency>
 
 
 		<!-- ############################ TESTING ############################### -->

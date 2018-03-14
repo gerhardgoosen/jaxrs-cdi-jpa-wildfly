@@ -1,6 +1,7 @@
 
 package eoh.cic.rest.control;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,9 +12,9 @@ import javax.inject.Named;
 import javax.persistence.PreRemove;
 import javax.transaction.Transactional;
 
-import eoh.cic.jpa.utils.EntityController;
+import eoh.cic.jpa.utils.JPAEntityController;
 import eoh.cic.model.Cic;
-import eoh.cic.rest.CicApiException;
+import eoh.cic.rest.errors.CicApiException;
 
 @Named(value = "CicControl")
 @RequestScoped
@@ -21,7 +22,7 @@ public class CicControl {
 	private static final Logger log = Logger.getLogger(CicControl.class.getName());
 
 	@Inject
-	EntityController entityControl;
+	JPAEntityController entityControl;
 
 	@PostConstruct
 	public void initilize() {
@@ -58,6 +59,14 @@ public class CicControl {
 	public Cic createCic(Cic data) throws CicApiException {
 		log.log(Level.INFO, "create Cic ({0});", data);
 		try {
+			if(data.getEntity()!=null && data.getEntity().getId()==null){
+				data.getEntity().setCicList(new ArrayList<>());
+				
+				data.getEntity().getCicList().add(data);
+				
+				this.entityControl.saveModelObject(data.getEntity());
+			}
+			
 			return (Cic) this.entityControl.saveModelObject(data);
 		}
 		catch (Exception e) {

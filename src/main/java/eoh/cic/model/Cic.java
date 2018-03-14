@@ -5,10 +5,19 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.envers.Audited;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import eoh.cic.jpa.PersistentObject;
 
@@ -20,8 +29,12 @@ import eoh.cic.jpa.PersistentObject;
  *
  */
 @Entity
+@Audited
 
-public class Cic implements PersistentObject, Serializable {
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonRootName("Cic")
+public class Cic extends DefaultPojo {
 
 	/**
 	 * 
@@ -44,6 +57,10 @@ public class Cic implements PersistentObject, Serializable {
 	private String body;
 	private String sourceSystem;
 	private Date cicTimeStamp;
+
+	@ManyToOne
+	@JoinColumn(name = "entity_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_cic_entity"))
+	private eoh.cic.model.Entity entity;
 
 	public Long getId() {
 		return id;
@@ -104,6 +121,14 @@ public class Cic implements PersistentObject, Serializable {
 	@Override
 	public int hashCode() {
 		return (id != null) ? (this.getClass().hashCode() + id.hashCode()) : super.hashCode();
+	}
+
+	public eoh.cic.model.Entity getEntity() {
+		return entity;
+	}
+
+	public void setEntity(eoh.cic.model.Entity entity) {
+		this.entity = entity;
 	}
 
 }
