@@ -1,7 +1,6 @@
 package eoh.cic.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -13,11 +12,8 @@ import javax.persistence.TableGenerator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import eoh.cic.jpa.PersistentObject;
-
 /**
- * @author gpgoosen
- * @since 2015/11/03
+ * @author Gerhard 
  *
  */
 @MappedSuperclass

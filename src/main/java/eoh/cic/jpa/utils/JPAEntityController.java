@@ -14,8 +14,8 @@ import javax.persistence.PreRemove;
 import javax.transaction.Transactional;
 
 import eoh.cic.jpa.AppPersistanceContext;
-import eoh.cic.jpa.PersistentObject;
 import eoh.cic.model.Cic;
+import eoh.cic.model.PersistentObject;
 
 /**
  * @author gerhardg

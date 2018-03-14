@@ -1,4 +1,4 @@
-package eoh.cic.jpa;
+package eoh.cic.model;
 
 public interface PersistentObject {
 
