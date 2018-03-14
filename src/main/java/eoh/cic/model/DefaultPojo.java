@@ -21,7 +21,7 @@ import eoh.cic.jpa.PersistentObject;
  *
  */
 @MappedSuperclass
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public abstract class DefaultPojo implements PersistentObject, Serializable {
 
 	private static final long serialVersionUID = -8901066761396617423L;

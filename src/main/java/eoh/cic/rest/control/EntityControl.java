@@ -59,6 +59,13 @@ public class EntityControl {
 	public Entity createEntity(Entity data) throws CicApiException {
 		log.log(Level.INFO, "create Cic ({0});", data);
 		try {
+
+			if (data.getCicList().size() > 0) {
+				data.getCicList().forEach(cicItem -> {
+					cicItem.setEntity(data);
+				});
+			}
+
 			return (Entity) this.entityControl.saveModelObject(data);
 		}
 		catch (Exception e) {
@@ -67,6 +74,5 @@ public class EntityControl {
 		}
 
 	}
-
 
 }
