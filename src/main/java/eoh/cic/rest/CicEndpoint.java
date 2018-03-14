@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eoh.cic.model.Cic;
-import eoh.cic.rest.control.AuditControl;
 import eoh.cic.rest.control.CicControl;
 
 @Path("/cic")
@@ -27,14 +26,11 @@ public class CicEndpoint {
 	@Inject
 	private CicControl cicControl;
 
-	@Inject
-	private AuditControl auditControl;
-
 	private ObjectMapper mapper;
 
 	@PostConstruct
 	private void postConstruct() {
-		  this.mapper = new ObjectMapper();
+		this.mapper = new ObjectMapper();
 	}
 
 	@GET
@@ -53,8 +49,6 @@ public class CicEndpoint {
 		}
 	}
 
-	
-
 	@POST
 	@Path("/")
 	@Consumes("application/json")
@@ -72,21 +66,4 @@ public class CicEndpoint {
 		}
 	}
 
-	
-	
-	@GET
-	@Path("/audit/{id}")
-	@Produces("application/json")
-	public Response getAuditHistory(@PathParam("id") Long id) {
-		log.log(Level.INFO, "getAuditHistory({0})", id);
-		try {
-
-			return Response.ok(mapper.writeValueAsString(auditControl.getAuditTrail(Cic.class, id))).build();
-
-		}
-		catch (Exception e) {
-			log.log(Level.SEVERE, "Error on CicEndpoint.getAuditHistory : {0}", e.getMessage());
-			return Response.status(500).entity(e.getMessage()).build();
-		}
-	}
 }

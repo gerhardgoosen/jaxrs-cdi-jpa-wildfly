@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eoh.cic.model.Entity;
-import eoh.cic.rest.control.AuditControl;
 import eoh.cic.rest.control.EntityControl;
 
 @Path("/entity")
@@ -26,9 +25,7 @@ public class EntityEndpoint {
 
 	@Inject
 	private EntityControl entityControl;
-
-	@Inject
-	private AuditControl auditControl;
+ 
 
 	private ObjectMapper mapper;
 
@@ -73,20 +70,5 @@ public class EntityEndpoint {
 	}
 
 	
-	
-	@GET
-	@Path("/audit/{id}")
-	@Produces("application/json")
-	public Response getAuditHistory(@PathParam("id") Long id) {
-		log.log(Level.INFO, "getAuditHistory({0})", id);
-		try {
-
-			return Response.ok(mapper.writeValueAsString(auditControl.getAuditTrail(Entity.class, id))).build();
-
-		}
-		catch (Exception e) {
-			log.log(Level.SEVERE, "Error on EntityEndpoint.getAuditHistory : {0}", e.getMessage());
-			return Response.status(500).entity(e.getMessage()).build();
-		}
-	}
+	 
 }

@@ -4,6 +4,7 @@ Endpoints:
 ============
 
 POST http://localhost:8080/eoh-cic-service/rest/cic/
+===
 
 POST DATA:
 ============
@@ -37,6 +38,7 @@ Response:
 
 
 GET http://localhost:8080/eoh-cic-service/rest/cic/{id}
+===
 
 response:
 ==
@@ -60,6 +62,7 @@ response:
 
 
 GET http://localhost:8080/eoh-cic-service/rest/entity/{id}
+===
 
 response:
 ==
@@ -83,6 +86,7 @@ response:
 
 
 POST http://localhost:8080/eoh-cic-service/rest/entity/
+===
 
 POST DATA:
 ============
